@@ -12,9 +12,10 @@ def get_signups_for(u):
 
     return signups
 
-def already_signed_up_for(t):
+def already_signed_up_for(u, t):
     signups = UserSignup.all()
     signups.filter('topic =', t)
+    signups.filter('user =', u)
 
     s = signups.fetch(1)
     if s:
@@ -60,7 +61,7 @@ def signup_topic(user, topic_id):
         return None
 
     # First check that we haven't already signed up
-    if already_signed_up_for(topic):
+    if already_signed_up_for(user, topic):
         return ('already_signed_up', topic)
     else:
         s = UserSignup(user = user, topic = topic)
