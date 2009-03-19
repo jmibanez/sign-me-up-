@@ -22,9 +22,11 @@ def page_not_found(request, template_name='404.html'):
     t = loader.get_template(template_name) # You need to create a 404.html template.
     return HttpResponseNotFound(t.render(Context({'request_path': request.path})))
 
-@must_be_logged_in
 def home(request):
     user = users.get_current_user()
+    if not user:
+        return HttpResponseRedirect('/topics')
+
     topic_list = manager.get_signups_for(user)
     new_topics = manager.get_new_topics()
 
