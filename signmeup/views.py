@@ -89,3 +89,18 @@ def signup_topic(request, topic_id):
         return render_to_response(signup[0] + '.html', { 'user' : u, 'topic' : signup[1] })
     else:
         return page_not_found(request)
+
+@must_be_logged_in
+def view_topic_signups(request, topic_id):
+    u = users.get_current_user()
+
+    try:
+        signup_list = manager.get_topic_signups_check_user(u, topic_id)
+        if signup_list == None:
+            return page_not_found(request)
+
+        return render_to_response('topic_signups.html', { 'user' : u, 'signup_list' : signup_list })
+    except 'NotAllowed':
+        # FIXME: Proper error page!
+        return page_not_found(request)
+

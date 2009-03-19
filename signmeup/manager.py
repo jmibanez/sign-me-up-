@@ -52,9 +52,7 @@ def get_topic(id):
     return r
 
 def get_signup_count(topic):
-    signups = UserSignup.all()
-    signups.filter('topic =', topic)
-    return signups.count()
+    return get_topic_signups(topic).count()
 
 def signup_topic(user, topic_id):
     topic = get_topic(topic_id)
@@ -68,3 +66,18 @@ def signup_topic(user, topic_id):
         s = UserSignup(user = user, topic = topic)
         s.put()
         return ('thanks', topic)
+
+def get_topic_signups_check_user(user, topic_id):
+    topic = get_topic(topic_id)
+    if not topic:
+        return None
+
+    if topic.owner != user:
+        raise 'NotAllowed'
+
+    return get_topic_signups(topic)
+
+def get_topic_signups(topic):
+    signups = UserSignup.all()
+    signups.filter('topic =', topic)
+    return signups

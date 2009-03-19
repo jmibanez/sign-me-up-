@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+{% block base_head_contents %}<title>Sign Me Up For...</title>{% endblock %}
+{% block page_body %}
+
+<h3>Signup List</h3>
+<ul>{% for s in signup_list %}
+   <li>{{ s.user }}</li>
+{% endfor %}</ul>
+
+
+<p><a href="{% url signmeup.views.define_topic %}">Create a new signup</a></p>
+{% endblock %}

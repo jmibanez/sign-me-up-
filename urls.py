@@ -10,6 +10,7 @@ urlpatterns = patterns(
     '',
     (r'^$', 'signmeup.views.home'),
     (r'^topic/(?P<topic_id>[A-Za-z0-9\-]+)/signup', 'signmeup.views.signup_topic'),
+    (r'^topic/(?P<topic_id>[A-Za-z0-9\-]+)/list$', 'signmeup.views.view_topic_signups'),
     (r'^topic/(?P<topic_id>[A-Za-z0-9\-]+)$', 'signmeup.views.view_topic'),
     (r'^topics', 'signmeup.views.all_topics'),
     (r'^new_topic', 'signmeup.views.define_topic'),
