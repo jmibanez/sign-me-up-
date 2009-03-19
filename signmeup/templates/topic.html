@@ -9,7 +9,7 @@
 
 {% ifequal topic.owner user %}
 <h3>Statistics for this topic:</h3>
-<p>Number of signups: {{ count }}</p>
+<p>Number of signups: <a href="/topic/{{ topic.key }}/list">{{ count }}</a></p>
 
 {% endifequal %}
 {% endblock %}
