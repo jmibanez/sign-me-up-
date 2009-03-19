@@ -63,7 +63,8 @@ def define_topic(request):
             return HttpResponseRedirect('/topic/' + str(id))
 
 
-    return render_to_response('new_topic.html', { 'user' : u, 'form' : f })
+    return render_to_response('new_topic.html', { 'user' : u, 'form' : f,
+                                                  'logout_url' : users.create_logout_url('/topics') })
 
 
 def view_topic(request, topic_id):
@@ -74,7 +75,8 @@ def view_topic(request, topic_id):
             c = manager.get_signup_count(topic)
             return render_to_response('topic.html', { 'user'  : u, 
                                                       'topic' : topic,
-                                                      'count' : c })
+                                                      'count' : c,
+                                                      'logout_url' : users.create_logout_url('/topics') })
         else:
             return render_to_response('topic.html', { 'user' : u, 'topic': topic })
     else:
@@ -86,7 +88,8 @@ def signup_topic(request, topic_id):
     signup = manager.signup_topic(u, topic_id)
 
     if signup:
-        return render_to_response(signup[0] + '.html', { 'user' : u, 'topic' : signup[1] })
+        return render_to_response(signup[0] + '.html', { 'user' : u, 'topic' : signup[1],
+                                                         'logout_url' : users.create_logout_url('/topics') })
     else:
         return page_not_found(request)
 
@@ -99,7 +102,8 @@ def view_topic_signups(request, topic_id):
         if signup_list == None:
             return page_not_found(request)
 
-        return render_to_response('topic_signups.html', { 'user' : u, 'signup_list' : signup_list })
+        return render_to_response('topic_signups.html', { 'user' : u, 'signup_list' : signup_list,
+                                                          'logout_url' : users.create_logout_url('/topics') })
     except 'NotAllowed':
         # FIXME: Proper error page!
         return page_not_found(request)
