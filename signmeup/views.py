@@ -44,11 +44,15 @@ def all_topics(request):
         page = 1
 
     actual_page = page - 1
+    next_page = (page + 1)
     topic_list = manager.get_topics_paged(actual_page)
+
+    if len(topic_list) < 10:
+        next_page = 0
 
     return render_to_response('topics.html', { 'topics'     : topic_list,
                                                'logout_url' : users.create_logout_url('/topics'),
-                                               'next_page'  : (page + 1),
+                                               'next_page'  : next_page,
                                                'prev_page'  : (page - 1)})
 
 
