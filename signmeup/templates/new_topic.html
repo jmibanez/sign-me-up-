@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+{% block base_head_contents %}<title>New Sign Up Topic</title>{% endblock %}
+{% block page_body %}
+
+<form method="post">
+   <table>
+   {{ form }}
+   </table>
+   <p><input type="submit" value="Create Topic" /></p>
+</form>
+
+{% endblock %}

@@ -9,7 +9,11 @@ handler404 = 'signmeup.views.page_not_found'
 urlpatterns = patterns(
     '',
     (r'^$', 'signmeup.views.home'),
-    (r'^admin/$', 'signmeup.views.admin.home'),
+    (r'^topic/(?P<topic_id>[A-Za-z0-9\-]+)/signup', 'signmeup.views.signup_topic'),
+    (r'^topic/(?P<topic_id>[A-Za-z0-9\-]+)$', 'signmeup.views.view_topic'),
+    (r'^topics', 'signmeup.views.all_topics'),
+    (r'^new_topic', 'signmeup.views.define_topic'),
+    #(r'^admin/$', 'signmeup.views.admin.home'),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
